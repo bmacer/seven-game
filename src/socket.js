@@ -3,9 +3,10 @@ import io from "socket.io-client";
 let SERVER;
 
 if (window.location.hostname === "localhost") {
-  SERVER = "http://127.0.0.1:5002";
+  // SERVER = "http://127.0.0.1:5002";
+  SERVER = "https://seven-app-server.herokuapp.com";
 } else {
-  SERVER = "https://seven-app-server.herokuapp.com:53775";
+  SERVER = "https://seven-app-server.herokuapp.com";
 }
 
 const connectionOptions = {
