@@ -1,5 +1,7 @@
 import io from "socket.io-client";
 
+let SERVER;
+
 if (window.location.hostname === "localhost") {
   SERVER = "http://127.0.0.1:5002";
 } else {
