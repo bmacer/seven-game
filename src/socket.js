@@ -5,7 +5,7 @@ let SERVER;
 if (window.location.hostname === "localhost") {
   SERVER = "http://127.0.0.1:5002";
 } else {
-  SERVER = "https://seven-app-server.herokuapp.com/";
+  SERVER = "https://seven-app-server.herokuapp.com:53775";
 }
 
 const connectionOptions = {
