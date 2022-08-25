@@ -1,6 +1,10 @@
 import io from "socket.io-client";
 
-const SERVER = "http://127.0.0.1:5002";
+if (window.location.hostname === "localhost") {
+  SERVER = "http://127.0.0.1:5002";
+} else {
+  SERVER = "https://seven-app-server.herokuapp.com/";
+}
 
 const connectionOptions = {
   forceNew: true,
