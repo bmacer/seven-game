@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-const NameEntry = ({ onNameChange }) => {
+import { GameContext } from "../../contexts/game.context";
+
+const NameEntry = () => {
+  const { currentUsername, setCurrentUsername } = useContext(GameContext);
   const [user, setUsername] = useState("");
 
   const handleUsernameChange = (event) => {
@@ -8,7 +11,8 @@ const NameEntry = ({ onNameChange }) => {
   };
 
   const handleClick = () => {
-    onNameChange(user);
+    console.log("clicked");
+    setCurrentUsername(user);
   };
 
   return (

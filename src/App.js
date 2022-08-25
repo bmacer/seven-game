@@ -5,31 +5,32 @@ import ChatWindow from "./components/chat-window/chat-window.component";
 import NameEntry from "./components/name-entry/name-entry.component";
 import JoinGame from "./components/join-game/join-game.component";
 
-import { UserProvider } from "./contexts/user.context";
-import { UserContext } from "./contexts/user.context";
+import { GameProvider } from "./contexts/game.context";
+import { GameContext } from "./contexts/game.context";
 import socket from "./socket";
 
-const Home = () => {
-  const { currentUser, setCurrentUser } = useContext(UserContext);
+import CreateGame from "./components/create-game/create-game.component";
+import CurrentGame from "./components/current-game/current-game.component";
 
-  const [user, setUsername] = useState("");
-  const [currentGame, setCurrentGame] = useState("");
-  // const handleNameChange = (name) => {
-  //   setUsername(name);
-  // };
+const Home = () => {
+  const { currentUsername, setCurrentUsername } = useContext(GameContext);
+  const { currentGame, setCurrentGame } = useContext(GameContext);
+
   return (
     <div>
-      {!user ? (
-        <NameEntry onNameChange={(name) => setUsername(name)} />
+      <CurrentGame game={currentGame} />
+      <h1>{currentUsername}</h1>
+      {!currentUsername ? (
+        <NameEntry />
       ) : (
         <>
           {!currentGame ? (
-            <JoinGame
-              name={user}
-              onGameChange={(game) => setCurrentGame(game)}
-            />
+            <div>
+              <CreateGame />
+              <JoinGame />
+            </div>
           ) : (
-            <ChatWindow user={user} />
+            <ChatWindow />
           )}
         </>
       )}
@@ -40,9 +41,9 @@ const Home = () => {
 function App() {
   return (
     <div className="App">
-      <UserProvider>
+      <GameProvider>
         <Home />
-      </UserProvider>
+      </GameProvider>
     </div>
   );
 }

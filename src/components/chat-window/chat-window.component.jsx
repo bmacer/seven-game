@@ -1,10 +1,11 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import socket from "../../socket";
 
 import "./chat-window.styles.scss";
 
 import ChatLine from "../chat-line/chat-line.component";
-import ScrollToBottom from "react-scroll-to-bottom";
+
+import { GameContext } from "../../contexts/game.context";
 
 const scrollToBottom = (id) => {
   let obj = document.getElementById(id);
@@ -16,7 +17,7 @@ const scrollToBottom = (id) => {
 const ChatWindow = ({ user }) => {
   const [msg, setMsg] = useState("");
   const [messages, setMessages] = useState([]);
-  const [username, setUsername] = useState(user);
+  const { currentUsername } = useContext(GameContext);
 
   const handleMessageChange = (event) => {
     setMsg(event.target.value);
@@ -24,7 +25,7 @@ const ChatWindow = ({ user }) => {
 
   const submit_message_callback = () => {
     setMessages((prev) => {
-      return [...prev, { msg, sender: username, isMine: true }];
+      return [...prev, { msg, sender: currentUsername, isMine: true }];
     });
     scrollToBottom("chat-window");
   };
@@ -33,7 +34,7 @@ const ChatWindow = ({ user }) => {
     event.preventDefault();
     socket.emit(
       "send-message",
-      { msg: msg, sender: username },
+      { msg: msg, sender: currentUsername },
       submit_message_callback
     );
   };
@@ -55,8 +56,8 @@ const ChatWindow = ({ user }) => {
   return (
     <div id="full-chat-window" className="full-chat-window">
       <div className="chat-title">
-        <p class="left">Chat</p>
-        <p class="right">Minimize</p>
+        <p className="left">Chat</p>
+        <p className="right">Minimize</p>
       </div>
       <div className="chat-window" id="chat-window">
         {messages.map((msg) => {
@@ -65,7 +66,7 @@ const ChatWindow = ({ user }) => {
       </div>
       <form
         id="chat-window-form"
-        class="chat-window-form"
+        className="chat-window-form"
         onSubmit={handleSubmit}
       >
         <input
@@ -73,9 +74,6 @@ const ChatWindow = ({ user }) => {
           onChange={handleMessageChange}
           placeholder="Say Something..."
         ></input>
-        {/* <button class="chat-window-button" type="submit">
-          Send Message
-        </button> */}
       </form>
     </div>
   );
