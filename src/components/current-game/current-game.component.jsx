@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { GameContext } from "../../contexts/game.context";
 
 import socket from "../../socket";
@@ -12,11 +12,21 @@ const CurrentGame = () => {
     setCurrentGame,
   } = useContext(GameContext);
 
-  socket.on("game-update", (game) => {
-    setCurrentGame(game);
-    setCurrentGameId(game.id);
-    console.log(game);
-  });
+  useEffect(() => {
+    socket.on("game-update", (game) => {
+      setCurrentGame(game);
+      setCurrentGameId(game.id);
+      console.log(game);
+      console.log("game");
+    });
+    socket.on("cards-being-dealt", (cards) => {
+      console.log(cards);
+    });
+    return function cleanup() {
+      socket.removeListener("cards-being-dealt");
+      socket.removeListener("game-update");
+    };
+  }, []);
 
   const numberOfPlayers = (game) => {
     let number = 0;
