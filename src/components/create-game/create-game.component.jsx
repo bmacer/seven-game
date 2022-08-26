@@ -17,7 +17,7 @@ const CreateGame = () => {
       return;
     }
     setCurrentUserId(myPlayerId);
-    setCurrentGameId(game.roomCode);
+    setCurrentGameId(game.id);
     setCurrentGame(game);
     console.log(game);
   };

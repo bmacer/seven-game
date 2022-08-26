@@ -12,13 +12,15 @@ import socket from "./socket";
 import CreateGame from "./components/create-game/create-game.component";
 import CurrentGame from "./components/current-game/current-game.component";
 
+import LeaveButton from "./components/leave-button/leave-button.component";
+
 const Home = () => {
   const { currentUsername, setCurrentUsername } = useContext(GameContext);
   const { currentGame, setCurrentGame } = useContext(GameContext);
 
   return (
     <div>
-      <CurrentGame game={currentGame} />
+      <CurrentGame />
       <h1>{currentUsername}</h1>
       {!currentUsername ? (
         <NameEntry />
@@ -30,7 +32,10 @@ const Home = () => {
               <JoinGame />
             </div>
           ) : (
-            <ChatWindow />
+            <div>
+              <ChatWindow />
+              <LeaveButton />
+            </div>
           )}
         </>
       )}

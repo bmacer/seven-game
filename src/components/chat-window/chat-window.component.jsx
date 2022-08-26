@@ -37,6 +37,7 @@ const ChatWindow = ({ user }) => {
       { msg: msg, sender: currentUsername },
       submit_message_callback
     );
+    setMsg("");
   };
 
   useEffect(() => {

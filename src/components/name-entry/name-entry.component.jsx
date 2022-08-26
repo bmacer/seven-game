@@ -18,12 +18,14 @@ const NameEntry = () => {
   return (
     <div>
       <h2>Enter Name</h2>
-      <input
-        name="username"
-        value={user}
-        onChange={handleUsernameChange}
-      ></input>
-      <button onClick={handleClick}>Submit</button>
+      <form>
+        <input
+          name="username"
+          value={user}
+          onChange={handleUsernameChange}
+        ></input>
+        <button onClick={handleClick}>Submit</button>
+      </form>
     </div>
   );
 };

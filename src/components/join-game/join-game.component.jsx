@@ -5,13 +5,13 @@ import CurrentGame from "../current-game/current-game.component";
 import { GameContext } from "../../contexts/game.context";
 
 const JoinGame = (props) => {
-  const [roomCode, setRoomCode] = useState("abcd");
+  const [gameId, setGameId] = useState("abcd");
 
-  const { currentUsername, setCurrentGame, setCurrentUserId } =
+  const { currentUsername, setCurrentGame, setCurrentGameId } =
     useContext(GameContext);
 
   const handleInputChange = (event) => {
-    setRoomCode(event.target.value);
+    setGameId(event.target.value);
   };
 
   const joinGameCallback = (game, currentUsername, error) => {
@@ -19,14 +19,17 @@ const JoinGame = (props) => {
       console.log(error);
       return;
     }
+    console.log("calling callback");
     setCurrentGame(game);
+    setCurrentGameId(game.id);
+    console.log(game);
   };
 
   const handleJoin = (event) => {
     event.preventDefault();
     socket.emit(
       "joinGame",
-      { name: currentUsername, roomCode },
+      { name: currentUsername, gameId },
       joinGameCallback
     );
   };
@@ -37,7 +40,7 @@ const JoinGame = (props) => {
         <input
           name="gameCode"
           type="text"
-          value={roomCode}
+          value={gameId}
           placeholder="Event Code"
           onChange={handleInputChange}
         />
