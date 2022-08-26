@@ -10,38 +10,11 @@ import { GameContext } from "./contexts/game.context";
 import socket from "./socket";
 
 import CreateGame from "./components/create-game/create-game.component";
-import CurrentGame from "./components/current-game/current-game.component";
+import PlayersTable from "./components/players-table/players-table.component";
 
 import LeaveButton from "./components/leave-button/leave-button.component";
 
-const Home = () => {
-  const { currentUsername, setCurrentUsername } = useContext(GameContext);
-  const { currentGame, setCurrentGame } = useContext(GameContext);
-
-  return (
-    <div>
-      <CurrentGame />
-      <h1>{currentUsername}</h1>
-      {!currentUsername ? (
-        <NameEntry />
-      ) : (
-        <>
-          {!currentGame ? (
-            <div>
-              <CreateGame />
-              <JoinGame />
-            </div>
-          ) : (
-            <div>
-              <ChatWindow />
-              <LeaveButton />
-            </div>
-          )}
-        </>
-      )}
-    </div>
-  );
-};
+import Home from "./components/home/home.component";
 
 function App() {
   return (

@@ -1,0 +1,15 @@
+.players-table {
+  table {
+    border-collapse: collapse;
+  }
+  td,
+  thead {
+    border: 1px solid;
+    padding: 20px;
+  }
+  tr {
+    .currentPlayer {
+      background: orange;
+    }
+  }
+}

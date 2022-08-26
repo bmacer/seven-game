@@ -1,11 +1,11 @@
 import { useState, useContext } from "react";
 import socket from "../../socket";
 
-import CurrentGame from "../current-game/current-game.component";
+// import CurrentGame from "../players-table/players-table.component";
 import { GameContext } from "../../contexts/game.context";
 
 const JoinGame = (props) => {
-  const [gameId, setGameId] = useState("abcd");
+  const [gameId, setGameId] = useState("");
 
   const { currentUsername, setCurrentGame, setCurrentGameId } =
     useContext(GameContext);
