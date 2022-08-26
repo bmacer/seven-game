@@ -7,7 +7,7 @@ import socket from "../../socket";
 const DealButton = () => {
   const { currentGame } = useContext(GameContext);
   const handleDealClick = () => {
-    socket.emit("deal", currentGame);
+    socket.emit("deal", currentGame.id);
   };
   return <button onClick={handleDealClick}>Deal</button>;
 };

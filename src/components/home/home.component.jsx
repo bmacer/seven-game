@@ -8,6 +8,7 @@ import ChatWindow from "../chat-window/chat-window.component";
 import LeaveButton from "../leave-button/leave-button.component";
 import MyHand from "../my-hand/my-hand.component";
 import DealButton from "../deal-button/deal-button.component";
+import TrumpCard from "../trump-card/trump-card.component";
 
 import { GameContext } from "../../contexts/game.context";
 
@@ -34,6 +35,7 @@ const Home = () => {
               <h2>Room ID: {currentGame.id}</h2>
               <ChatWindow />
               <LeaveButton />
+              <TrumpCard />
               <MyHand />
               <DealButton />
             </div>

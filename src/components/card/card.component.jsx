@@ -1,3 +1,5 @@
+import "./card.styles.scss";
+
 const ACE_HEART = require("../../assets/CardImages/png/1h.png");
 const ACE_DIAMOND = require("../../assets/CardImages/png/1d.png");
 const ACE_SPADE = require("../../assets/CardImages/png/1s.png");
@@ -236,7 +238,11 @@ const Card = ({ card }) => {
         break;
     }
   }
-  return <img src={c} />;
+  return (
+    <div className="individual-card">
+      <img src={c} />
+    </div>
+  );
 };
 
 export default Card;

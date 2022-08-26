@@ -38,6 +38,7 @@ const ChatWindow = ({ user }) => {
       submit_message_callback
     );
     setMsg("");
+    document.getElementsByClassName("chat-window")[0].removeAttribute("hidden");
   };
 
   useEffect(() => {
@@ -54,16 +55,41 @@ const ChatWindow = ({ user }) => {
     };
   }, []);
 
+  const handleMinimizeMaximize = (event) => {
+    console.log("clickeD");
+    document.getElementsByClassName("chat-window")[0].toggleAttribute("hidden");
+    document
+      .getElementsByClassName("chat-min-max")[0]
+      .toggleAttribute("hidden");
+    document
+      .getElementsByClassName("chat-min-max")[1]
+      .toggleAttribute("hidden");
+  };
+
+  const handleMessageSend = () => {
+    console.log("sent");
+  };
+
   return (
     <div id="full-chat-window" className="full-chat-window">
-      <div className="chat-title">
-        <p className="left">Chat</p>
-        <p className="right">Minimize</p>
-      </div>
+      {" "}
       <div className="chat-window" id="chat-window">
         {messages.map((msg) => {
           return <ChatLine message={msg} />;
         })}
+      </div>
+      <div className="chat-title">
+        <p className="left">Chat</p>
+        <p className="right chat-min-max" onClick={handleMinimizeMaximize}>
+          Maximize
+        </p>
+        <p
+          className="right chat-min-max"
+          onClick={handleMinimizeMaximize}
+          hidden
+        >
+          Minimize
+        </p>
       </div>
       <form
         id="chat-window-form"
@@ -71,6 +97,7 @@ const ChatWindow = ({ user }) => {
         onSubmit={handleSubmit}
       >
         <input
+          id="say-something"
           value={msg}
           onChange={handleMessageChange}
           placeholder="Say Something..."
