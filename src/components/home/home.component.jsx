@@ -9,6 +9,7 @@ import LeaveButton from "../leave-button/leave-button.component";
 import MyHand from "../my-hand/my-hand.component";
 import DealButton from "../deal-button/deal-button.component";
 import TrumpCard from "../trump-card/trump-card.component";
+import Bid from "../bid/bid.component";
 
 import { GameContext } from "../../contexts/game.context";
 
@@ -38,6 +39,7 @@ const Home = () => {
               <TrumpCard />
               <MyHand />
               <DealButton />
+              <Bid />
             </div>
           )}
         </>

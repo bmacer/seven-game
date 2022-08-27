@@ -17,7 +17,7 @@ const TrumpCard = () => {
       {trumpCard ? (
         <div>
           <h1>Trump Card</h1>
-          <Card key="{trumpCard.value + trumpCard.suit}" card={trumpCard} />
+          {/* <Card key="{trumpCard.value + trumpCard.suit}" card={trumpCard} /> */}
         </div>
       ) : (
         <></>

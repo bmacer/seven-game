@@ -6,8 +6,14 @@ import socket from "../../socket";
 import "./players-table.styles.scss";
 
 const PlayersTable = () => {
-  const { currentUsername, setCurrentGameId, currentGame, setCurrentGame } =
-    useContext(GameContext);
+  const {
+    currentUsername,
+    setCurrentGameId,
+    currentGame,
+    setCurrentGame,
+    dealerIndex,
+    currentTurnPlayerIndex,
+  } = useContext(GameContext);
 
   useEffect(() => {
     socket.on("game-update", (game) => {
@@ -31,8 +37,11 @@ const PlayersTable = () => {
         <table>
           <thead>
             <tr>
+              <td>Dealer</td>
+              <td>Turn</td>
               <td>#</td>
               <td>Player</td>
+              <td>Bid</td>
             </tr>
           </thead>
           <tbody>
@@ -44,6 +53,8 @@ const PlayersTable = () => {
                     player.name === currentUsername ? "currentPlayer" : ""
                   }
                 >
+                  {dealerIndex == index ? <td>*</td> : <td></td>}
+                  {currentTurnPlayerIndex == index ? <td>*</td> : <td></td>}
                   <td>{index + 1}</td>
                   <td>{player.name || "EMPTY"}</td>
                 </tr>

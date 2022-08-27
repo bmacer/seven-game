@@ -1,6 +1,8 @@
 import { createContext, useState } from "react";
 
 export const GameContext = createContext({
+  myHand: [],
+  setMyHand: () => null,
   currentUsername: null,
   setCurrentUsername: () => null,
   currentUserId: null,
@@ -9,6 +11,12 @@ export const GameContext = createContext({
   setCurrentGame: () => null,
   currentGameId: null,
   setCurrentGameId: () => null,
+  numPlayers: null,
+  setNumPlayers: () => null,
+  dealerIndex: null,
+  setDealerIndex: () => null,
+  currentTurnPlayerIndex: null,
+  setCurrentTurnPlayerIndex: () => null,
 });
 
 export const GameProvider = ({ children }) => {
@@ -16,6 +24,10 @@ export const GameProvider = ({ children }) => {
   const [currentUserId, setCurrentUserId] = useState(null);
   const [currentGame, setCurrentGame] = useState(null);
   const [currentGameId, setCurrentGameId] = useState(null);
+  const [numPlayers, setNumPlayers] = useState(null);
+  const [myHand, setMyHand] = useState([]);
+  const [dealerIndex, setDealerIndex] = useState(null);
+  const [currentTurnPlayerIndex, setCurrentTurnPlayerIndex] = useState(null);
   const value = {
     currentUsername,
     setCurrentUsername,
@@ -25,6 +37,14 @@ export const GameProvider = ({ children }) => {
     setCurrentGame,
     currentGameId,
     setCurrentGameId,
+    numPlayers,
+    setNumPlayers,
+    myHand,
+    setMyHand,
+    dealerIndex,
+    setDealerIndex,
+    currentTurnPlayerIndex,
+    setCurrentTurnPlayerIndex,
   };
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 };
