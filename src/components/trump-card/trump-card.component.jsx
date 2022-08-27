@@ -8,8 +8,8 @@ const TrumpCard = () => {
   const [trumpCard, setTrumpCard] = useState("");
   useEffect(() => {
     console.log("trump being rendered");
-    socket.on("cards-being-dealt", ({ trump }) => {
-      setTrumpCard(trump);
+    socket.on("cards-being-dealt", ({ trumpCard }) => {
+      setTrumpCard(trumpCard);
     });
   });
   return (
@@ -17,7 +17,7 @@ const TrumpCard = () => {
       {trumpCard ? (
         <div>
           <h1>Trump Card</h1>
-          {/* <Card key="{trumpCard.value + trumpCard.suit}" card={trumpCard} /> */}
+          <Card key="{trumpCard.value + trumpCard.suit}" card={trumpCard} />
         </div>
       ) : (
         <></>

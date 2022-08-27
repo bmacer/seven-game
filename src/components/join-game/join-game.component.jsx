@@ -7,14 +7,14 @@ import { GameContext } from "../../contexts/game.context";
 const JoinGame = (props) => {
   const [gameId, setGameId] = useState("");
 
-  const { currentUsername, setCurrentGame, setCurrentGameId } =
+  const { currentUsername, setCurrentGame, setCurrentGameId, setMyUserIndex } =
     useContext(GameContext);
 
   const handleInputChange = (event) => {
     setGameId(event.target.value);
   };
 
-  const joinGameCallback = (game, currentUsername, error) => {
+  const joinGameCallback = (game, myIndex, error) => {
     if (error) {
       console.log(error);
       return;
@@ -22,6 +22,7 @@ const JoinGame = (props) => {
     console.log("calling callback");
     setCurrentGame(game);
     setCurrentGameId(game.id);
+    setMyUserIndex(myIndex);
     console.log(game);
   };
 

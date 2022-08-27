@@ -13,6 +13,7 @@ const PlayersTable = () => {
     setCurrentGame,
     dealerIndex,
     currentTurnPlayerIndex,
+    bids,
   } = useContext(GameContext);
 
   useEffect(() => {
@@ -55,8 +56,10 @@ const PlayersTable = () => {
                 >
                   {dealerIndex == index ? <td>*</td> : <td></td>}
                   {currentTurnPlayerIndex == index ? <td>*</td> : <td></td>}
+
                   <td>{index + 1}</td>
                   <td>{player.name || "EMPTY"}</td>
+                  <td>{bids[index]}</td>
                 </tr>
               );
             })}

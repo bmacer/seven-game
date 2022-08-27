@@ -36,10 +36,10 @@ const Home = () => {
               <h2>Room ID: {currentGame.id}</h2>
               <ChatWindow />
               <LeaveButton />
-              <TrumpCard />
-              <MyHand />
               <DealButton />
               <Bid />
+              <TrumpCard />
+              <MyHand />
             </div>
           )}
         </>
