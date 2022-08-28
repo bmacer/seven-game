@@ -29,6 +29,7 @@ const Bid = () => {
       setCurrentTurnPlayerIndex(nextPlayersIndex);
       bids[biddingPlayerIndex] = biddingPlayerBid;
       setBids(bids);
+      console.log("BIDBIDBID");
       console.log(biddingPlayerBid);
       setGameState(gameState);
     });
