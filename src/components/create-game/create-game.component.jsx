@@ -12,16 +12,18 @@ const CreateGame = () => {
     setMyUserIndex,
   } = useContext(GameContext);
 
-  const createGameCallback = (game, seatIndex, error) => {
+  //{ id: game.id, error }
+  const createGameCallback = ({ id, error }) => {
+    console.log(id);
     if (error) {
       console.log(error);
       return;
     }
     // setCurrentUserId(myPlayerId);
-    setCurrentGameId(game.id);
-    setCurrentGame(game);
-    setMyUserIndex(seatIndex);
-    console.log(game);
+    setCurrentGameId(id);
+    // setCurrentGame(game);
+    setMyUserIndex(0);
+    // console.log(game);
   };
 
   const handleCreateGame = (event) => {

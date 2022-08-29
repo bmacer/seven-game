@@ -44,6 +44,7 @@ const ChatWindow = ({ user }) => {
   useEffect(() => {
     socket.on("connection", null);
     socket.on("msg", (payload) => {
+      console.log("RECEIVING MESSAGE");
       const { msg, sender } = payload;
       setMessages((prev) => {
         return [...prev, { msg, sender }];
