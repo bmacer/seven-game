@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import socket from "../../socket";
 import { useNavigate } from "react-router-dom";
 import { GameContext } from "../../contexts/game.context";
@@ -11,9 +11,12 @@ const CreateGame = () => {
 
   const navigate = useNavigate();
 
-  if (okToRedirect) {
-    navigate(`/${currentGame.id}`);
-  }
+  useEffect(() => {
+    if (okToRedirect) {
+      navigate(`/${currentGame.id}`);
+    }
+  }, [okToRedirect]);
+
   // });
 
   const createGameCallback = ({ game, error }) => {
@@ -28,7 +31,7 @@ const CreateGame = () => {
 
   const handleCreateGame = (event) => {
     event.preventDefault();
-    socket.emit("createGame", { name: currentUsername }, createGameCallback);
+    socket.emit("create-game", { name: currentUsername }, createGameCallback);
   };
   return (
     <div>

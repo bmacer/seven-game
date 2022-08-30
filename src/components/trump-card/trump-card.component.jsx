@@ -4,6 +4,8 @@ import Card from "../card/card.component";
 
 import socket from "../../socket";
 
+import "./trump-card.styles.scss";
+
 const TrumpCard = () => {
   const [trumpCard, setTrumpCard] = useState("");
   useEffect(() => {
@@ -15,7 +17,7 @@ const TrumpCard = () => {
   return (
     <div>
       {trumpCard ? (
-        <div>
+        <div className="trump-card-container">
           <h1>Trump Card</h1>
           <Card key="{trumpCard.value + trumpCard.suit}" card={trumpCard} />
         </div>

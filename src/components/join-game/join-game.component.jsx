@@ -36,7 +36,7 @@ const JoinGame = (props) => {
   const handleJoin = (event) => {
     event.preventDefault();
     socket.emit(
-      "joinRoom",
+      "join-room",
       { name: currentUsername, gameId },
       joinGameCallback
     );
