@@ -6,26 +6,10 @@ import socket from "../../socket";
 import "./players-table.styles.scss";
 
 const PlayersTable = () => {
-  const {
-    currentUsername,
-    setCurrentGameId,
-    currentGame,
-    setCurrentGame,
-    dealerIndex,
-    currentTurnPlayerIndex,
-    bids,
-  } = useContext(GameContext);
-
+  const { myUserIndex, currentGame, bids } = useContext(GameContext);
+  console.log("curcur");
+  console.log(myUserIndex);
   useEffect(() => {
-    socket.on("game-update", (game) => {
-      setCurrentGame(game);
-      setCurrentGameId(game.id);
-      console.log(game);
-      console.log("game");
-    });
-    // socket.on("cards-being-dealt", (cards) => {
-    //   console.log(cards);
-    // });
     return function cleanup() {
       socket.removeListener("cards-being-dealt");
       socket.removeListener("game-update");
@@ -51,14 +35,17 @@ const PlayersTable = () => {
                 <tr
                   key={index}
                   className={
-                    player.name === currentUsername ? "currentPlayer" : ""
+                    player.username === myUserIndex ? "currentPlayer" : "xxx"
                   }
                 >
-                  {dealerIndex == index ? <td>*</td> : <td></td>}
-                  {currentTurnPlayerIndex == index ? <td>*</td> : <td></td>}
-
+                  {currentGame.dealerIndex == index ? <td>*</td> : <td></td>}
+                  {currentGame.currentTurnOfPlayer == index ? (
+                    <td>*</td>
+                  ) : (
+                    <td></td>
+                  )}
                   <td>{index + 1}</td>
-                  <td>{player.name || "EMPTY"}</td>
+                  <td>{player.username || "EMPTY"}</td>
                   <td>{bids[index]}</td>
                 </tr>
               );

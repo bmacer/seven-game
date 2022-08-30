@@ -1,29 +1,34 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import socket from "../../socket";
-
+import { useNavigate } from "react-router-dom";
 import { GameContext } from "../../contexts/game.context";
 
 const CreateGame = () => {
   const {
-    setCurrentGameId,
-    setCurrentGame,
-    setCurrentUserId,
     currentUsername,
     setMyUserIndex,
+    currentGameId,
+    setCurrentGame,
+    currentGame,
   } = useContext(GameContext);
 
-  //{ id: game.id, error }
-  const createGameCallback = ({ id, error }) => {
-    console.log(id);
+  const [okToRedirect, setOkToRedirect] = useState(false);
+
+  const navigate = useNavigate();
+
+  if (okToRedirect) {
+    navigate(`/${currentGame.id}`);
+  }
+  // });
+
+  const createGameCallback = ({ game, error }) => {
     if (error) {
       console.log(error);
       return;
     }
-    // setCurrentUserId(myPlayerId);
-    setCurrentGameId(id);
-    // setCurrentGame(game);
+    setCurrentGame(game);
     setMyUserIndex(0);
-    // console.log(game);
+    setOkToRedirect(true);
   };
 
   const handleCreateGame = (event) => {
