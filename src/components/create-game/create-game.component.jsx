@@ -1,16 +1,11 @@
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import socket from "../../socket";
 import { useNavigate } from "react-router-dom";
 import { GameContext } from "../../contexts/game.context";
 
 const CreateGame = () => {
-  const {
-    currentUsername,
-    setMyUserIndex,
-    currentGameId,
-    setCurrentGame,
-    currentGame,
-  } = useContext(GameContext);
+  const { currentUsername, setMyUserIndex, setCurrentGame, currentGame } =
+    useContext(GameContext);
 
   const [okToRedirect, setOkToRedirect] = useState(false);
 

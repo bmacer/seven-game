@@ -1,6 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 
 import { useParams } from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 import PlayersTable from "../components/players-table/players-table.component";
 import ChatWindow from "../components/chat-window/chat-window.component";
@@ -17,14 +19,20 @@ const GameRoute = () => {
   console.log("I am game Route");
 
   const { currentGame, currentGameId } = useContext(GameContext);
+  console.log(`currentGameID::: ${currentGameId}`);
+  const navigate = useNavigate();
 
-  // Check for current game
-  // setCurrentGame(id);
+  useEffect(() => {
+    if (!currentGame) {
+      navigate("/");
+    }
+  });
+
   return (
     <div>
       {currentGame ? <PlayersTable /> : <></>}
       <div>
-        <h2>Room ID: {currentGameId}</h2>
+        <h2>Room ID: == {currentGame?.id}</h2>
         <ChatWindow />
         <LeaveButton />
         <DealButton />

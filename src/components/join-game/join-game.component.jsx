@@ -1,35 +1,42 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import socket from "../../socket";
+import { useNavigate } from "react-router-dom";
 
-// import CurrentGame from "../players-table/players-table.component";
 import { GameContext } from "../../contexts/game.context";
 
 const JoinGame = (props) => {
   const [gameId, setGameId] = useState("");
 
-  const { currentUsername, setCurrentGame, setCurrentGameId, setMyUserIndex } =
+  const { currentUsername, currentGame, setCurrentGame } =
     useContext(GameContext);
+
+  const [okToRedirect, setOkToRedirect] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (okToRedirect) {
+      navigate(`/${currentGame.id}`);
+    }
+  }, [okToRedirect]);
 
   const handleInputChange = (event) => {
     setGameId(event.target.value);
   };
 
-  const joinGameCallback = (game, myIndex, error) => {
+  const joinGameCallback = ({ game, error }) => {
     if (error) {
       console.log(error);
       return;
     }
-    console.log("calling callback");
     setCurrentGame(game);
-    setCurrentGameId(game.id);
-    setMyUserIndex(myIndex);
-    console.log(game);
+    setOkToRedirect(true);
   };
 
   const handleJoin = (event) => {
     event.preventDefault();
     socket.emit(
-      "joinGame",
+      "joinRoom",
       { name: currentUsername, gameId },
       joinGameCallback
     );

@@ -6,15 +6,41 @@ import socket from "../../socket";
 import "./players-table.styles.scss";
 
 const PlayersTable = () => {
-  const { myUserIndex, currentGame, bids } = useContext(GameContext);
-  console.log("curcur");
-  console.log(myUserIndex);
+  const { myUserIndex, currentGame, bids, currentUsername, setCurrentGame } =
+    useContext(GameContext);
+
   useEffect(() => {
     return function cleanup() {
       socket.removeListener("cards-being-dealt");
       socket.removeListener("game-update");
     };
   }, []);
+
+  const takeASeatCallback = (game) => {
+    setCurrentGame(game);
+  };
+
+  const handleSitClick = (event) => {
+    console.log("sitting at seat:");
+    console.log(event.target.value);
+    const seatIndex = event.target.value;
+    socket.emit(
+      "take-a-seat",
+      {
+        gameId: currentGame.id,
+        seatIndex,
+        name: currentUsername,
+      },
+      takeASeatCallback
+    );
+  };
+
+  socket.on("seating-update", ({ game }) => {
+    console.log("got seating update");
+    console.log(game);
+    setCurrentGame(game);
+  });
+  // io.to(player.socketId!).emit("seating-update", game);
 
   return (
     <div>
@@ -45,7 +71,13 @@ const PlayersTable = () => {
                     <td></td>
                   )}
                   <td>{index + 1}</td>
-                  <td>{player.username || "EMPTY"}</td>
+                  <td>
+                    {player.username || (
+                      <button value={index} onClick={handleSitClick}>
+                        Sit
+                      </button>
+                    )}
+                  </td>
                   <td>{bids[index]}</td>
                 </tr>
               );
