@@ -6,6 +6,7 @@ import socket from "../../socket";
 
 const Bid = () => {
   const {
+    currentGame,
     myHand,
     dealerIndex,
     currentTurnPlayerIndex,
@@ -59,7 +60,7 @@ const Bid = () => {
   return (
     <div>
       <h1>Bid</h1>
-      <h2>Game State: {gameState}</h2>
+      <h2>Game State: {currentGame?.state}</h2>
       <div>{options}</div>
       <div>dealer index: {dealerIndex}</div>
       <div>current turn: {currentTurnPlayerIndex}</div>

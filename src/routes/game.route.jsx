@@ -13,6 +13,7 @@ import TrumpCard from "../components/trump-card/trump-card.component";
 import Bid from "../components/bid/bid.component";
 
 import { GameContext } from "../contexts/game.context";
+import StandUpButton from "../components/stand-up-button/stand-up-button.component";
 
 const GameRoute = () => {
   let { id } = useParams();
@@ -35,6 +36,7 @@ const GameRoute = () => {
         <h2>Room ID: == {currentGame?.id}</h2>
         <ChatWindow />
         <LeaveButton />
+        <StandUpButton />
         <DealButton />
         <Bid />
         <TrumpCard />

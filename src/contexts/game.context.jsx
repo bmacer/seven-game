@@ -23,6 +23,8 @@ export const GameContext = createContext({
   setBids: () => null,
   gameState: null,
   setGameState: () => null,
+  iAmSeated: null,
+  setIAmSeated: () => null,
 });
 
 export const GameProvider = ({ children }) => {
@@ -37,7 +39,10 @@ export const GameProvider = ({ children }) => {
   const [myUserIndex, setMyUserIndex] = useState(null);
   const [bids, setBids] = useState([]);
   const [gameState, setGameState] = useState(null);
+  const [iAmSeated, setIAmSeated] = useState(false);
   const value = {
+    iAmSeated,
+    setIAmSeated,
     currentUsername,
     setCurrentUsername,
     currentUserId,

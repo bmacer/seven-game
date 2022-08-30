@@ -4,8 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { GameContext } from "../../contexts/game.context";
 
 const CreateGame = () => {
-  const { currentUsername, setMyUserIndex, setCurrentGame, currentGame } =
-    useContext(GameContext);
+  const {
+    currentUsername,
+    setMyUserIndex,
+    setCurrentGame,
+    currentGame,
+    setIAmSeated,
+  } = useContext(GameContext);
 
   const [okToRedirect, setOkToRedirect] = useState(false);
 
@@ -26,6 +31,7 @@ const CreateGame = () => {
     }
     setCurrentGame(game);
     setMyUserIndex(0);
+    setIAmSeated(true);
     setOkToRedirect(true);
   };
 

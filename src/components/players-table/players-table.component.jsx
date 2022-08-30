@@ -6,8 +6,15 @@ import socket from "../../socket";
 import "./players-table.styles.scss";
 
 const PlayersTable = () => {
-  const { myUserIndex, currentGame, bids, currentUsername, setCurrentGame } =
-    useContext(GameContext);
+  const {
+    iAmSeated,
+    setIAmSeated,
+    myUserIndex,
+    currentGame,
+    bids,
+    currentUsername,
+    setCurrentGame,
+  } = useContext(GameContext);
 
   useEffect(() => {
     return function cleanup() {
@@ -18,12 +25,13 @@ const PlayersTable = () => {
 
   const takeASeatCallback = (game) => {
     setCurrentGame(game);
+    setIAmSeated(true);
   };
 
   const handleSitClick = (event) => {
     console.log("sitting at seat:");
     console.log(event.target.value);
-    const seatIndex = event.target.value;
+    const seatIndex = parseInt(event.target.value);
     socket.emit(
       "take-a-seat",
       {
@@ -73,9 +81,15 @@ const PlayersTable = () => {
                   <td>{index + 1}</td>
                   <td>
                     {player.username || (
-                      <button value={index} onClick={handleSitClick}>
-                        Sit
-                      </button>
+                      <>
+                        {!iAmSeated ? (
+                          <button value={index} onClick={handleSitClick}>
+                            Sit
+                          </button>
+                        ) : (
+                          ""
+                        )}
+                      </>
                     )}
                   </td>
                   <td>{bids[index]}</td>

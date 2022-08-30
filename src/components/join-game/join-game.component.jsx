@@ -7,7 +7,7 @@ import { GameContext } from "../../contexts/game.context";
 const JoinGame = (props) => {
   const [gameId, setGameId] = useState("");
 
-  const { currentUsername, currentGame, setCurrentGame } =
+  const { setIAmSeated, currentUsername, currentGame, setCurrentGame } =
     useContext(GameContext);
 
   const [okToRedirect, setOkToRedirect] = useState(false);

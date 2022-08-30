@@ -4,23 +4,22 @@ import { GameContext } from "../../contexts/game.context";
 
 import socket from "../../socket";
 
-const LeaveButton = () => {
+const StandUpButton = () => {
   const { setIAmSeated, setCurrentGame, setCurrentGameId } =
     useContext(GameContext);
 
   const callback = (game) => {
-    setCurrentGame(null);
+    setCurrentGame(game);
     setIAmSeated(false);
-    setCurrentGameId("");
   };
-  const handleLeaveClick = () => {
+  const handleStandUp = () => {
     socket.emit("leave", callback);
   };
   return (
     <div>
-      <button onClick={handleLeaveClick}>Leave</button>
+      <button onClick={handleStandUp}>Stand Up</button>
     </div>
   );
 };
 
-export default LeaveButton;
+export default StandUpButton;
