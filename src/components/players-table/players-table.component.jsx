@@ -54,6 +54,15 @@ const PlayersTable = () => {
     return round.bids;
   };
 
+  const getTricksFromGame = (game) => {
+    let round = game.round;
+    if (!round) {
+      console.log(`ERROR in getTricksFromGame: round is null`);
+      return;
+    }
+    return round.tricks;
+  };
+
   const renderBids = (bids) => {
     if (!bids) {
       return;
@@ -63,6 +72,20 @@ const PlayersTable = () => {
       return (
         <tr>
           return <td>{bid}</td>;
+        </tr>
+      );
+    });
+  };
+
+  const renderTricks = (tricks) => {
+    if (!tricks) {
+      return;
+    }
+    let rendered = [];
+    tricks.map((score) => {
+      return (
+        <tr>
+          return <td>{score}</td>;
         </tr>
       );
     });
@@ -86,6 +109,7 @@ const PlayersTable = () => {
               <td>#</td>
               <td>Player</td>
               <td>Bid</td>
+              <td>Tricks</td>
             </tr>
           </thead>
           <tbody>
@@ -118,7 +142,9 @@ const PlayersTable = () => {
                     )}
                   </td>
                   <td>{currentGame.round?.bids[index]}</td>
-                  {renderBids(getBidsFromGame(currentGame))}
+                  <td>{currentGame.round?.tricks[index]}</td>
+                  {/* {renderBids(getBidsFromGame(currentGame))}
+                  {renderTricks(getTricksFromGame(currentGame))} */}
                 </tr>
               );
             })}
