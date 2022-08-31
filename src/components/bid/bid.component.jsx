@@ -26,6 +26,7 @@ const Bid = () => {
     socket.on("publish-game-update", ({ game }) => {
       setCurrentGame(game);
     });
+
     socket.on("bid", (props) => {
       const {
         biddingPlayerIndex,
@@ -36,8 +37,6 @@ const Bid = () => {
       setCurrentTurnPlayerIndex(nextPlayersIndex);
       bids[biddingPlayerIndex] = biddingPlayerBid;
       setBids(bids);
-      console.log("BIDBIDBID");
-      console.log(biddingPlayerBid);
       setGameState(gameState);
       if (currentTurnPlayerIndex == myUserIndex && myBid) {
         socket.emit("bid", {
@@ -59,7 +58,12 @@ const Bid = () => {
     setMyBid(event.target.value);
     const playerIndex = myUserIndex;
     // const gameId = currentGameId;
-    if (currentTurnPlayerIndex == myUserIndex) {
+    console.log({ currentTurnPlayerIndex, myUserIndex });
+    console.log(currentGame);
+    console.log(myUserIndex);
+    console.log(currentGame.currentTurnPlayerIndex === myUserIndex);
+    if (currentGame.currentTurnOfPlayer === myUserIndex) {
+      console.log("should be emitting");
       socket.emit("bid", { bid, idx: playerIndex, gid: currentGame.id });
     }
   };
@@ -77,6 +81,14 @@ const Bid = () => {
     <div>
       <h1>Bid</h1>
       <h2>My Bid: {myBid}</h2>
+      <h2>My Turn To Bid:</h2>
+      <>
+        {currentGame.currentTurnOfPlayer == myUserIndex ? (
+          <h3>yes</h3>
+        ) : (
+          <h3>no</h3>
+        )}
+      </>
       <h2>Game State: {currentGame?.state}</h2>
       <div>{options}</div>
       <div>dealer index: {dealerIndex}</div>

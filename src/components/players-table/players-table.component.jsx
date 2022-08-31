@@ -10,6 +10,7 @@ const PlayersTable = () => {
     iAmSeated,
     setIAmSeated,
     myUserIndex,
+    setMyUserIndex,
     currentGame,
     bids,
     currentUsername,
@@ -23,9 +24,10 @@ const PlayersTable = () => {
     };
   }, []);
 
-  const takeASeatCallback = (game) => {
+  const takeASeatCallback = (game, seatIndex) => {
     setCurrentGame(game);
     setIAmSeated(true);
+    setMyUserIndex(seatIndex);
   };
 
   const handleSitClick = (event) => {
@@ -41,6 +43,32 @@ const PlayersTable = () => {
       },
       takeASeatCallback
     );
+  };
+
+  const getBidsFromGame = (game) => {
+    let rounds = game.rounds;
+    if (rounds.length == 0) {
+      console.log(`ERROR in getBidsFromGame: round has no length`);
+      return;
+    }
+    let round = rounds[rounds.length - 1];
+    return round.bids;
+  };
+
+  const renderBids = (bids) => {
+    console.log("bids");
+    console.log(bids);
+    if (!bids) {
+      return;
+    }
+    let rendered = [];
+    bids.map((bid) => {
+      return (
+        <tr>
+          return <td>{bid}</td>;
+        </tr>
+      );
+    });
   };
 
   socket.on("seating-update", ({ game }) => {
@@ -99,6 +127,7 @@ const PlayersTable = () => {
                       ]
                     }
                   </td>
+                  {renderBids(getBidsFromGame(currentGame))}
                 </tr>
               );
             })}
