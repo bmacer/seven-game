@@ -23,6 +23,8 @@ const MyHand = () => {
     setDealerIndex,
     setCurrentTurnPlayerIndex,
     setBids,
+    setCurrentGame,
+    currentGame,
   } = useContext(GameContext);
   useEffect(() => {
     socket.on(
@@ -33,6 +35,12 @@ const MyHand = () => {
         setDealerIndex(dealerIndex);
         setCurrentTurnPlayerIndex(currentTurnPlayerIndex);
         setBids(bids);
+        console.log(currentGame);
+        setCurrentGame({
+          ...currentGame,
+          ...{ state: "Bidding" },
+        });
+        console.log(currentGame);
       }
     );
   });

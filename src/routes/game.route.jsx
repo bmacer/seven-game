@@ -37,8 +37,8 @@ const GameRoute = () => {
         <ChatWindow />
         <LeaveButton />
         <StandUpButton />
-        <DealButton />
-        <Bid />
+        <> {currentGame?.state == "Dealing" && <DealButton />}</>
+        <> {currentGame?.state == "Bidding" && <Bid />}</>
         <TrumpCard />
         <MyHand />
       </div>

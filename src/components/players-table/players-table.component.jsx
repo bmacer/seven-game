@@ -92,7 +92,13 @@ const PlayersTable = () => {
                       </>
                     )}
                   </td>
-                  <td>{bids[index]}</td>
+                  <td>
+                    {
+                      currentGame.rounds[currentGame.rounds.length - 1]?.bids[
+                        index
+                      ]
+                    }
+                  </td>
                 </tr>
               );
             })}

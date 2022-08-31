@@ -17,9 +17,15 @@ const Bid = () => {
     bids,
     setGameState,
     gameState,
+    myBid,
+    setMyBid,
+    setCurrentGame,
   } = useContext(GameContext);
 
   useEffect(() => {
+    socket.on("publish-game-update", ({ game }) => {
+      setCurrentGame(game);
+    });
     socket.on("bid", (props) => {
       const {
         biddingPlayerIndex,
@@ -33,6 +39,13 @@ const Bid = () => {
       console.log("BIDBIDBID");
       console.log(biddingPlayerBid);
       setGameState(gameState);
+      if (currentTurnPlayerIndex == myUserIndex && myBid) {
+        socket.emit("bid", {
+          bid: myBid,
+          idx: myUserIndex,
+          gid: currentGame.id,
+        });
+      }
     });
 
     return function cleanup() {
@@ -43,9 +56,12 @@ const Bid = () => {
   const handleButtonClick = (event) => {
     console.log(event);
     const bid = event.target.value;
+    setMyBid(event.target.value);
     const playerIndex = myUserIndex;
-    const gameId = currentGameId;
-    socket.emit("bid", { bid, playerIndex, gameId });
+    // const gameId = currentGameId;
+    if (currentTurnPlayerIndex == myUserIndex) {
+      socket.emit("bid", { bid, idx: playerIndex, gid: currentGame.id });
+    }
   };
   const options = [];
 
@@ -60,6 +76,7 @@ const Bid = () => {
   return (
     <div>
       <h1>Bid</h1>
+      <h2>My Bid: {myBid}</h2>
       <h2>Game State: {currentGame?.state}</h2>
       <div>{options}</div>
       <div>dealer index: {dealerIndex}</div>
