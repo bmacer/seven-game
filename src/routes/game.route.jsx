@@ -17,6 +17,7 @@ import StandUpButton from "../components/stand-up-button/stand-up-button.compone
 import PlayedHand from "../components/played-hand/played-hand.component";
 import NameEntry from "../components/name-entry/name-entry.component";
 import socket from "../socket";
+import ContinueButton from "../components/continue-button/continue-button.component";
 const GameRoute = () => {
   let { id } = useParams();
 
@@ -77,6 +78,7 @@ const GameRoute = () => {
               <div>
                 <h2>Current State: {currentGame.state}</h2>
                 <h2>Room ID: == {currentGame?.id}</h2>
+                <ContinueButton />
                 <PlayedHand />
                 <ChatWindow />
                 <LeaveButton />
