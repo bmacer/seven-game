@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import { useNavigate } from "react-router-dom";
 
@@ -15,40 +15,122 @@ import Bid from "../components/bid/bid.component";
 import { GameContext } from "../contexts/game.context";
 import StandUpButton from "../components/stand-up-button/stand-up-button.component";
 import PlayedHand from "../components/played-hand/played-hand.component";
-
+import NameEntry from "../components/name-entry/name-entry.component";
+import socket from "../socket";
 const GameRoute = () => {
   let { id } = useParams();
 
-  const { currentGame, currentGameId } = useContext(GameContext);
+  const { setCurrentGame, currentGame, currentGameId, currentUsername } =
+    useContext(GameContext);
   console.log(`currentGameID::: ${currentGameId}`);
+  console.log(`currentGame::: ${currentGame}`);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!currentGame) {
-      navigate("/");
+  const enterGame = () => {
+    console.log(`Entering game ${id} with name ${currentUsername}`);
+    socket.emit(
+      "join-room",
+      { name: currentUsername, gameId: id },
+      joinGameCallback
+    );
+    // handleJoin();
+  };
+
+  const joinGameCallback = ({ game, error }) => {
+    if (error) {
+      console.log(error);
+      return;
     }
+    setCurrentGame(game);
+    // setOkToRedirect(true);
+  };
+
+  // const handleJoin = (event) => {
+  //   event.preventDefault();
+  //   socket.emit(
+  //     "join-room",
+  //     { name: currentUsername, gameId },
+  //     joinGameCallback
+  //   );
+  // };
+
+  useEffect(() => {
+    // if (!currentGame) {
+    //   navigate("/");
+    // }
   });
 
   return (
     <div>
-      {currentGame ? <PlayersTable /> : <></>}
+      {!currentUsername ? (
+        <NameEntry nameEntryCallback={enterGame} />
+      ) : (
+        <>
+          {!currentGame ? (
+            <>
+              <h3>No game exists with that ID: {currentUsername}</h3>
+              <Link to="/">Go back</Link>
+            </>
+          ) : (
+            <>
+              <PlayersTable />
+              <div>
+                <h2>Current State: {currentGame.state}</h2>
+                <h2>Room ID: == {currentGame?.id}</h2>
+                <PlayedHand />
+                <ChatWindow />
+                <LeaveButton />
+                <StandUpButton />
+                {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
+                <> {currentGame?.state == "Bidding" && <Bid />}</>
+                <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
+                <DealButton />
+                <Bid />
+                <TrumpCard />
+                <MyHand />
+              </div>
+            </>
+          )}
+        </>
+      )}
+
+      {/* {currentGame ? <PlayersTable /> : <></>}
       <div>
         <h2>Current State: {currentGame.state}</h2>
         <h2>Room ID: == {currentGame?.id}</h2>
         <PlayedHand />
         <ChatWindow />
         <LeaveButton />
-        <StandUpButton />
-        {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
+        <StandUpButton /> */}
+      {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
         <> {currentGame?.state == "Bidding" && <Bid />}</>
         <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
-        <DealButton />
+      {/* <DealButton />
         <Bid />
 
         <TrumpCard />
-        <MyHand />
-      </div>
+        <MyHand /> */}
+      {/* </div> */}
     </div>
+    // <div>
+    // {currentGame ? <PlayersTable /> : <></>}
+    // <div>
+    //   <h2>Current State: {currentGame.state}</h2>
+    //   <h2>Room ID: == {currentGame?.id}</h2>
+    //   <PlayedHand />
+    //   <ChatWindow />
+    //   <LeaveButton />
+    //   <StandUpButton />
+    // {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
+    //  <> {currentGame?.state == "Bidding" && <Bid />}</>
+    // <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
+    //     <DealButton />
+    //     <Bid />
+
+    //     <TrumpCard />
+    //     <MyHand />
+    //   </div>
+    // </div>
   );
 };
 

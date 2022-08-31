@@ -2,17 +2,23 @@ import { useState, useContext } from "react";
 
 import { GameContext } from "../../contexts/game.context";
 
-const NameEntry = () => {
+const NameEntry = ({ nameEntryCallback }) => {
   const { currentUsername, setCurrentUsername } = useContext(GameContext);
   const [user, setUsername] = useState("");
 
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
+    console.log(event.target.value);
   };
 
-  const handleClick = () => {
+  const handleClick = (event) => {
     console.log("clicked");
+    console.log(event);
     setCurrentUsername(user);
+    console.log(`current user: ${currentUsername}`);
+    if (nameEntryCallback) {
+      nameEntryCallback();
+    }
   };
 
   return (
