@@ -55,8 +55,6 @@ const PlayersTable = () => {
   };
 
   const renderBids = (bids) => {
-    console.log("bids");
-    console.log(bids);
     if (!bids) {
       return;
     }

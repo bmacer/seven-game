@@ -1,5 +1,7 @@
 import "./card.styles.scss";
 
+const BLANK_CARD = require("../../assets/CardImages/png/blank.png");
+
 const ACE_HEART = require("../../assets/CardImages/png/1h.png");
 const ACE_DIAMOND = require("../../assets/CardImages/png/1d.png");
 const ACE_SPADE = require("../../assets/CardImages/png/1s.png");
@@ -65,11 +67,15 @@ const TWO_DIAMOND = require("../../assets/CardImages/png/2d.png");
 const TWO_SPADE = require("../../assets/CardImages/png/2s.png");
 const TWO_CLUB = require("../../assets/CardImages/png/2c.png");
 
-const Card = ({ card }) => {
+const Card = ({ card, onCardClick, index }) => {
+  const handleClick = (event) => {
+    onCardClick(card, index);
+  };
   let c;
-  console.log(card.suit);
-  console.log(card.value);
-  if (card.suit == "Diamond") {
+
+  if (!card) {
+    c = BLANK_CARD;
+  } else if (card.suit == "Diamond") {
     switch (card.value) {
       case "A":
         c = ACE_DIAMOND;
@@ -239,7 +245,7 @@ const Card = ({ card }) => {
     }
   }
   return (
-    <div className="individual-card">
+    <div onClick={handleClick} value={card} className="individual-card">
       <img src={c} />
     </div>
   );

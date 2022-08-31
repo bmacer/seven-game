@@ -14,10 +14,10 @@ import Bid from "../components/bid/bid.component";
 
 import { GameContext } from "../contexts/game.context";
 import StandUpButton from "../components/stand-up-button/stand-up-button.component";
+import PlayedHand from "../components/played-hand/played-hand.component";
 
 const GameRoute = () => {
   let { id } = useParams();
-  console.log("I am game Route");
 
   const { currentGame, currentGameId } = useContext(GameContext);
   console.log(`currentGameID::: ${currentGameId}`);
@@ -35,11 +35,16 @@ const GameRoute = () => {
       <div>
         <h2>Current State: {currentGame.state}</h2>
         <h2>Room ID: == {currentGame?.id}</h2>
+        <PlayedHand />
         <ChatWindow />
         <LeaveButton />
         <StandUpButton />
-        <> {currentGame?.state == "Dealing" && <DealButton />}</>
+        {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
         <> {currentGame?.state == "Bidding" && <Bid />}</>
+        <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
+        <DealButton />
+        <Bid />
+
         <TrumpCard />
         <MyHand />
       </div>
