@@ -18,6 +18,7 @@ import PlayedHand from "../components/played-hand/played-hand.component";
 import NameEntry from "../components/name-entry/name-entry.component";
 import socket from "../socket";
 import ContinueButton from "../components/continue-button/continue-button.component";
+import Scoreboard from "../components/scoreboard/scoreboard.component";
 const GameRoute = () => {
   let { id } = useParams();
 
@@ -90,6 +91,7 @@ const GameRoute = () => {
                 <Bid />
                 <TrumpCard />
                 <MyHand />
+                <Scoreboard />
               </div>
             </>
           )}

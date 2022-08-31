@@ -118,7 +118,7 @@ const PlayersTable = () => {
                 <tr
                   key={index}
                   className={
-                    player.username === myUserIndex ? "currentPlayer" : "xxx"
+                    player.seatIndex === myUserIndex ? "currentPlayer" : ""
                   }
                 >
                   {currentGame.dealerIndex == index ? <td>*</td> : <td></td>}

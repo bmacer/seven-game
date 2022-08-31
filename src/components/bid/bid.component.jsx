@@ -79,9 +79,6 @@ const Bid = () => {
 
   return (
     <div>
-      <h1>Bid</h1>
-      <h2>My Bid: {myBid}</h2>
-      <h2>My Turn To Bid:</h2>
       <>
         {currentGame.currentTurnOfPlayer == myUserIndex ? (
           <h3>yes</h3>
