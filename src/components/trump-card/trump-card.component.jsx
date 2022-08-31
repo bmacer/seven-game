@@ -10,8 +10,8 @@ const TrumpCard = () => {
   const [trumpCard, setTrumpCard] = useState("");
   useEffect(() => {
     console.log("trump being rendered");
-    socket.on("cards-being-dealt", ({ trumpCard }) => {
-      setTrumpCard(trumpCard);
+    socket.on("cards-being-dealt", ({ game }) => {
+      setTrumpCard(game.round.trump);
     });
   });
   return (

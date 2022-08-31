@@ -17,32 +17,12 @@ let initializedGame: InitializedGame = {
 */
 
 const MyHand = () => {
-  const {
-    myHand,
-    setMyHand,
-    setDealerIndex,
-    setCurrentTurnPlayerIndex,
-    setBids,
-    setCurrentGame,
-    currentGame,
-  } = useContext(GameContext);
+  const { myHand, setMyHand, setCurrentGame } = useContext(GameContext);
   useEffect(() => {
-    socket.on(
-      "cards-being-dealt",
-      ({ cards, dealerIndex, currentTurnPlayerIndex, bids }) => {
-        console.log(`cards: dealer: ${dealerIndex} <--`);
-        setMyHand(cards);
-        setDealerIndex(dealerIndex);
-        setCurrentTurnPlayerIndex(currentTurnPlayerIndex);
-        setBids(bids);
-        console.log(currentGame);
-        setCurrentGame({
-          ...currentGame,
-          ...{ state: "Bidding" },
-        });
-        console.log(currentGame);
-      }
-    );
+    socket.on("cards-being-dealt", ({ cards, game }) => {
+      setCurrentGame(game);
+      setMyHand(cards);
+    });
   });
   return (
     <div className="my-hand-container">

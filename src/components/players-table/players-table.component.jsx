@@ -46,12 +46,11 @@ const PlayersTable = () => {
   };
 
   const getBidsFromGame = (game) => {
-    let rounds = game.rounds;
-    if (rounds.length == 0) {
-      console.log(`ERROR in getBidsFromGame: round has no length`);
+    let round = game.round;
+    if (!round) {
+      console.log(`ERROR in getBidsFromGame: round is null`);
       return;
     }
-    let round = rounds[rounds.length - 1];
     return round.bids;
   };
 
@@ -120,13 +119,7 @@ const PlayersTable = () => {
                       </>
                     )}
                   </td>
-                  <td>
-                    {
-                      currentGame.rounds[currentGame.rounds.length - 1]?.bids[
-                        index
-                      ]
-                    }
-                  </td>
+                  <td>{currentGame.round?.bids[index]}</td>
                   {renderBids(getBidsFromGame(currentGame))}
                 </tr>
               );

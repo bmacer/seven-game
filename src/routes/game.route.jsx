@@ -33,6 +33,7 @@ const GameRoute = () => {
     <div>
       {currentGame ? <PlayersTable /> : <></>}
       <div>
+        <h2>Current State: {currentGame.state}</h2>
         <h2>Room ID: == {currentGame?.id}</h2>
         <ChatWindow />
         <LeaveButton />
