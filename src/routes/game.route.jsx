@@ -22,8 +22,13 @@ import Scoreboard from "../components/scoreboard/scoreboard.component";
 const GameRoute = () => {
   let { id } = useParams();
 
-  const { setCurrentGame, currentGame, currentGameId, currentUsername } =
-    useContext(GameContext);
+  const {
+    setCurrentGame,
+    currentGame,
+    currentGameId,
+    currentUsername,
+    myUserIndex,
+  } = useContext(GameContext);
   console.log(`currentGameID::: ${currentGameId}`);
   console.log(`currentGame::: ${currentGame}`);
   const navigate = useNavigate();
@@ -63,7 +68,13 @@ const GameRoute = () => {
   });
 
   return (
-    <div>
+    <div
+      style={
+        currentGame?.currentTurnOfPlayer == myUserIndex
+          ? { background: "yellow" }
+          : {}
+      }
+    >
       {!currentUsername ? (
         <NameEntry nameEntryCallback={enterGame} />
       ) : (
@@ -77,11 +88,12 @@ const GameRoute = () => {
             <>
               <PlayersTable />
               <div>
+                <h2>User: {currentUsername}</h2>
                 <h2>Current State: {currentGame.state}</h2>
                 <h2>Room ID: == {currentGame?.id}</h2>
                 <ContinueButton />
                 <PlayedHand />
-                <ChatWindow />
+                {/* <ChatWindow /> */}
                 <LeaveButton />
                 <StandUpButton />
                 {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>

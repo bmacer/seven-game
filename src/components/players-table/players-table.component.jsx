@@ -110,6 +110,7 @@ const PlayersTable = () => {
               <td>Player</td>
               <td>Bid</td>
               <td>Tricks</td>
+              <td>Score</td>
             </tr>
           </thead>
           <tbody>
@@ -143,6 +144,7 @@ const PlayersTable = () => {
                   </td>
                   <td>{currentGame.round?.bids[index]}</td>
                   <td>{currentGame.round?.tricks[index]}</td>
+                  <td>{currentGame.round?.score[index]}</td>
                   {/* {renderBids(getBidsFromGame(currentGame))}
                   {renderTricks(getTricksFromGame(currentGame))} */}
                 </tr>
