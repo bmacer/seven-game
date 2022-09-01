@@ -88,21 +88,40 @@ const GameRoute = () => {
             <>
               <PlayersTable />
               <div>
-                <h2>User: {currentUsername}</h2>
-                <h2>Current State: {currentGame.state}</h2>
-                <h2>Room ID: == {currentGame?.id}</h2>
-                <ContinueButton />
-                <PlayedHand />
+                <h5>
+                  User: {currentUsername} Round:{" "}
+                  {currentGame?.round?.roundNumber} Current State:{" "}
+                  {currentGame.state} Room ID: == {currentGame?.id}
+                </h5>
+                <>{currentGame.state == "Bidding" && <Bid />}</>
+                <>{currentGame.state == "Scoring" && <ContinueButton />}</>
+                <>{currentGame.state != "Bidding" && <PlayedHand />}</>
+                {/* <>
+                  <PlayedHand />
+                </> */}
+                <>
+                  {(currentGame.state != "Seating" ||
+                    currentGame.state != "Dealing") && (
+                    <>
+                      <MyHand />
+                      <TrumpCard />
+                    </>
+                  )}
+                </>
+
                 {/* <ChatWindow /> */}
-                <LeaveButton />
+                {/* <LeaveButton /> */}
                 <StandUpButton />
                 {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
                 <> {currentGame?.state == "Bidding" && <Bid />}</>
                 <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
-                <DealButton />
-                <Bid />
-                <TrumpCard />
-                <MyHand />
+                <>
+                  {currentGame.state == "Seating" && (
+                    <h3>Need players to join, table isn't full yet!</h3>
+                  )}
+                  {currentGame.state == "Dealing" && <DealButton />}
+                </>
+
                 <Scoreboard />
               </div>
             </>

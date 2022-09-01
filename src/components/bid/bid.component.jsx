@@ -1,3 +1,5 @@
+import "./bid.styles.scss";
+
 import { useContext, useEffect } from "react";
 
 import { GameContext } from "../../contexts/game.context";
@@ -78,18 +80,9 @@ const Bid = () => {
   }
 
   return (
-    <div>
-      <>
-        {currentGame.currentTurnOfPlayer == myUserIndex ? (
-          <h3>yes</h3>
-        ) : (
-          <h3>no</h3>
-        )}
-      </>
-      <h2>Game State: {currentGame?.state}</h2>
-      <div>{options}</div>
-      <div>dealer index: {dealerIndex}</div>
-      <div>current turn: {currentTurnPlayerIndex}</div>
+    <div className="bid-container">
+      <h2>Bid</h2>
+      {options}
     </div>
   );
 };

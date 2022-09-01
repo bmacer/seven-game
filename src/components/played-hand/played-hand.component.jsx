@@ -1,3 +1,4 @@
+import "./played-hand.styles.scss";
 import { useContext } from "react";
 import { GameContext } from "../../contexts/game.context";
 import Card from "../card/card.component";
@@ -10,7 +11,7 @@ const PlayedHand = () => {
   //     console.log("okkk");
   //   });
   return (
-    <div>
+    <div className="played-hands-container">
       <h1>Played Hands:</h1>
       <>
         {currentGame &&
