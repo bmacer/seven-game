@@ -23,7 +23,7 @@ const MyHand = () => {
     setCurrentGame,
     currentGame,
     myUserIndex,
-    setErrorMessage,
+    setBannerMessage,
   } = useContext(GameContext);
   useEffect(() => {
     socket.on("cards-being-dealt", ({ cards, game }) => {
@@ -32,38 +32,34 @@ const MyHand = () => {
     });
   });
   const handleCardClick = (card, cardIndex) => {
-    setErrorMessage(null);
-    // TODO handle error if trump card exists
-    console.log("CLICKED CLICKED");
-    console.log(card);
-    console.log(cardIndex);
-    console.log("currentGame");
-    console.log(currentGame);
-
+    setBannerMessage(null);
     socket.emit("play-card", {
       cardIndex,
       playerIndex: myUserIndex,
       gid: currentGame.id,
     });
-    // require it to be your turn to play (later)
-    if (currentGame.currentTurnOfPlay == myUserIndex) {
-    }
-    // console.log(event.target.value);
   };
   return (
     <div className="my-hand-container">
-      <h2>My Cards</h2>
-      {/* <h1>My Hand</h1> */}
-      {myHand.map((card, index) => {
-        return (
-          <Card
-            onCardClick={handleCardClick}
-            key={card.value + card.suit}
-            index={index}
-            card={card}
-          />
-        );
-      })}
+      {
+        <>
+          {myHand.length > 0 && (
+            <>
+              <h2>My Cards</h2>
+              {myHand.map((card, index) => {
+                return (
+                  <Card
+                    onCardClick={handleCardClick}
+                    key={card.value + card.suit}
+                    index={index}
+                    card={card}
+                  />
+                );
+              })}
+            </>
+          )}
+        </>
+      }
     </div>
   );
 };

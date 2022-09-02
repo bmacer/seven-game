@@ -27,8 +27,8 @@ export const GameContext = createContext({
   setIAmSeated: () => null,
   myBid: null,
   setMyBid: () => null,
-  errorMessage: null,
-  setErrorMessage: () => null,
+  bannerMessage: null,
+  setBannerMessage: () => null,
 });
 
 export const GameProvider = ({ children }) => {
@@ -45,7 +45,7 @@ export const GameProvider = ({ children }) => {
   const [gameState, setGameState] = useState(null);
   const [iAmSeated, setIAmSeated] = useState(false);
   const [myBid, setMyBid] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const [bannerMessage, setBannerMessage] = useState(null);
   const value = {
     iAmSeated,
     setIAmSeated,
@@ -73,8 +73,8 @@ export const GameProvider = ({ children }) => {
     setGameState,
     myBid,
     setMyBid,
-    errorMessage,
-    setErrorMessage,
+    bannerMessage,
+    setBannerMessage,
   };
   return <GameContext.Provider value={value}>{children}</GameContext.Provider>;
 };

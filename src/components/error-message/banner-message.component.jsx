@@ -2,26 +2,26 @@ import { useContext } from "react";
 import { GameContext } from "../../contexts/game.context";
 import socket from "../../socket";
 
-const ErrorMessage = () => {
-  const { errorMessage, setErrorMessage } = useContext(GameContext);
+const BannerMessage = () => {
+  const { bannerMessage, setBannerMessage } = useContext(GameContext);
   socket.on("error", (props) => {
-    const { message } = props;
-    setErrorMessage(message);
+    const { message, messageType } = props;
+    setBannerMessage(message);
     console.log("error");
     console.log(props);
     // alert("errir");
   });
   return (
     <>
-      {!errorMessage ? (
+      {!bannerMessage ? (
         <></>
       ) : (
         <div className="error-message-container">
-          <h1>Violation! {errorMessage}</h1>
+          <h1>{bannerMessage}</h1>
         </div>
       )}
     </>
   );
 };
 
-export default ErrorMessage;
+export default BannerMessage;

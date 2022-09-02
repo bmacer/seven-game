@@ -28,15 +28,6 @@ const Scoreboard = () => {
     );
   };
 
-  useEffect(() => {
-    let a = Array(currentGame?.players.length).keys();
-    console.log("a");
-    console.log(a);
-    console.log(Array.from(a));
-    console.log(currentGame?.round?.score?.bids);
-    console.log(currentGame?.players.length);
-  }, [currentGame]);
-
   let rounds = [];
   const getPlayerTdLine = (round, playerIndexes, score) => {
     console.log("playerIndexes");
