@@ -17,8 +17,14 @@ let initializedGame: InitializedGame = {
 */
 
 const MyHand = () => {
-  const { myHand, setMyHand, setCurrentGame, currentGame, myUserIndex } =
-    useContext(GameContext);
+  const {
+    myHand,
+    setMyHand,
+    setCurrentGame,
+    currentGame,
+    myUserIndex,
+    setErrorMessage,
+  } = useContext(GameContext);
   useEffect(() => {
     socket.on("cards-being-dealt", ({ cards, game }) => {
       setCurrentGame(game);
@@ -26,6 +32,7 @@ const MyHand = () => {
     });
   });
   const handleCardClick = (card, cardIndex) => {
+    setErrorMessage(null);
     // TODO handle error if trump card exists
     console.log("CLICKED CLICKED");
     console.log(card);

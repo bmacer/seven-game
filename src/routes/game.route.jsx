@@ -22,6 +22,8 @@ import socket from "../socket";
 import ContinueButton from "../components/continue-button/continue-button.component";
 import Scoreboard from "../components/scoreboard/scoreboard.component";
 import Seating from "../components/seating/seating.component";
+import Waiting from "../components/waiting/waiting.component";
+import ErrorMessage from "../components/error-message/error-message.component";
 const GameRoute = () => {
   let { id } = useParams();
 
@@ -31,6 +33,7 @@ const GameRoute = () => {
     currentGameId,
     currentUsername,
     myUserIndex,
+    errorMessage,
   } = useContext(GameContext);
   console.log(`currentGameID::: ${currentGameId}`);
   console.log(`currentGame::: ${currentGame}`);
@@ -84,14 +87,30 @@ const GameRoute = () => {
   const gameDisplay = () => {
     return (
       <>
+        <ErrorMessage />
         {/* <StandUpButton /> */}
         <div className="game-top-row">
           <PlayersTable />
-          {currentGame.state == "Seating" && <Seating />}
-          {currentGame.state == "Bidding" && <Bid />}
-          {currentGame.state == "Dealing" && <DealButton />}
-          {currentGame.state == "Scoring" && <ContinueButton />}
-          {currentGame.state == "Playing" && <div style={{ width: "50%" }} />}
+          <>
+            {currentGame.state == "Seating" && <Seating />}
+            {currentGame.state == "Bidding" && <Bid />}
+            {currentGame.state == "Dealing" && <DealButton />}
+            {currentGame.state == "Scoring" && <ContinueButton />}
+            {/* {currentGame.state == "Playing" && <div style={{ width: "50%" }} />} */}
+            {currentGame.state == "Playing" ? (
+              currentGame.currentTurnOfPlayer == myUserIndex ? (
+                <div style={{ width: "50%" }}>
+                  <h3>Your turn to PLAY! Pick a card!</h3>
+                </div>
+              ) : (
+                <Waiting />
+              )
+            ) : (
+              <></>
+            )}
+            )
+          </>
+
           <TrumpCard />
         </div>
         <div className="game-second-row">

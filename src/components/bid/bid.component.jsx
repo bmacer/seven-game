@@ -5,6 +5,7 @@ import { useContext, useEffect } from "react";
 import { GameContext } from "../../contexts/game.context";
 
 import socket from "../../socket";
+import Waiting from "../waiting/waiting.component";
 
 const Bid = () => {
   const {
@@ -81,8 +82,14 @@ const Bid = () => {
 
   return (
     <div className="bid-container">
-      <h2>Bid</h2>
-      {options}
+      {currentGame.currentTurnOfPlayer == myUserIndex ? (
+        <>
+          <h2>Bid</h2>
+          {options}
+        </>
+      ) : (
+        <Waiting />
+      )}
     </div>
   );
 };
