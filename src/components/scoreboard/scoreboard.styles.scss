@@ -1,38 +1,33 @@
 .scoreboard-container {
-  // position: absolute;
-  left: 0px;
-  top: 0px;
   font-size: 20px;
-  //   position: absolute;
-  background: orange;
-  width: 70%;
+  background: rgb(194, 240, 194);
+  width: 100%;
   margin: auto;
+  position: fixed;
+  bottom: 0;
+}
 
-  //   resize: vertical;
+.scoreboard-inner-title {
+  width: 100%;
 }
 
 #scoreboard-inner-container {
-  position: absolute;
+  &.hidden {
+    display: none;
+  }
+
   display: flex;
+  height: 400px;
   flex-direction: row;
   flex-wrap: wrap;
-  left: 0%;
-  top: 0%;
   z-index: 100;
-  background: yellow;
-  width: 400px;
-  overflow-x: hidden;
+  // background: yellow;
+  width: 100%;
   overflow-y: scroll;
-  resize: vertical;
-}
-
-#scoreboard-inner-container.visible {
-  width: 33%;
-  display: none;
 }
 
 .scoreboard-single-round {
-  width: 100%;
+  width: 33%;
   font-size: 20px;
   align-items: center;
   table {

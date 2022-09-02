@@ -60,8 +60,10 @@ const Scoreboard = () => {
     );
     let cleaned = (
       <>
-        <h3>Round {roundIndex}</h3>
-        <div className="scoreboard-single-round">{playerTds}</div>
+        <div className="scoreboard-single-round">
+          <h3>Round {roundIndex}</h3>
+          {playerTds}
+        </div>
       </>
     );
     rounds.push(cleaned);
@@ -71,13 +73,21 @@ const Scoreboard = () => {
     console.log(event);
     document
       .getElementById("scoreboard-inner-container")
-      .classList.toggle("visible");
+      .classList.toggle("hidden");
   };
 
   return (
     <div class="scoreboard-container">
-      <h1 onClick={handleClick}>Scoreboard</h1>
-      <div id="scoreboard-inner-container">{rounds}</div>
+      <h1 className="scoreboard-inner-title" onClick={handleClick}>
+        Scoreboard
+      </h1>
+      <div
+        onClick={handleClick}
+        id="scoreboard-inner-container"
+        className="hidden"
+      >
+        {rounds}
+      </div>
     </div>
   );
 };

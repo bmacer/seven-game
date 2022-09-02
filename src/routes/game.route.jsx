@@ -119,7 +119,9 @@ const GameRoute = () => {
           <MyHand />
         </div>
 
-        <Scoreboard />
+        <div class="game-third-row">
+          <Scoreboard />
+        </div>
       </>
     );
   };
