@@ -1,0 +1,36 @@
+.debug-data {
+  display: none;
+  &.visible {
+    display: block;
+  }
+  background-color: green;
+  h5 {
+    font-size: 20px;
+    margin: 0;
+  }
+}
+
+.is-my-turn {
+  background-color: lightpink;
+}
+
+.game-route-container {
+  //   margin: 0px;
+  display: inline;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  //   background: teal;
+  width: 95%;
+}
+
+.game-top-row {
+  //   margin: 0px;
+  display: flex;
+  width: 100%;
+  background: grey;
+}
+
+.game-second-row {
+  display: flex;
+  flex-wrap: wrap;
+}

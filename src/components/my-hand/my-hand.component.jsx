@@ -45,7 +45,8 @@ const MyHand = () => {
   };
   return (
     <div className="my-hand-container">
-      <h1>My Hand</h1>
+      <h2>My Cards</h2>
+      {/* <h1>My Hand</h1> */}
       {myHand.map((card, index) => {
         return (
           <Card

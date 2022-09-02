@@ -1,3 +1,5 @@
+import "./game.styles.scss";
+
 import { useContext, useEffect } from "react";
 
 import { Link, useParams } from "react-router-dom";
@@ -19,6 +21,7 @@ import NameEntry from "../components/name-entry/name-entry.component";
 import socket from "../socket";
 import ContinueButton from "../components/continue-button/continue-button.component";
 import Scoreboard from "../components/scoreboard/scoreboard.component";
+import Seating from "../components/seating/seating.component";
 const GameRoute = () => {
   let { id } = useParams();
 
@@ -31,7 +34,6 @@ const GameRoute = () => {
   } = useContext(GameContext);
   console.log(`currentGameID::: ${currentGameId}`);
   console.log(`currentGame::: ${currentGame}`);
-  const navigate = useNavigate();
 
   const enterGame = () => {
     console.log(`Entering game ${id} with name ${currentUsername}`);
@@ -40,7 +42,6 @@ const GameRoute = () => {
       { name: currentUsername, gameId: id },
       joinGameCallback
     );
-    // handleJoin();
   };
 
   const joinGameCallback = ({ game, error }) => {
@@ -49,123 +50,84 @@ const GameRoute = () => {
       return;
     }
     setCurrentGame(game);
-    // setOkToRedirect(true);
   };
 
-  // const handleJoin = (event) => {
-  //   event.preventDefault();
-  //   socket.emit(
-  //     "join-room",
-  //     { name: currentUsername, gameId },
-  //     joinGameCallback
-  //   );
-  // };
-
-  useEffect(() => {
-    // if (!currentGame) {
-    //   navigate("/");
-    // }
+  document.addEventListener("keypress", (event) => {
+    if (event.key == "d") {
+      let debug = document.getElementsByClassName("debug-data");
+      debug[0].classList.add("visible");
+    }
+    if (event.key == "f") {
+      let debug = document.getElementsByClassName("debug-data");
+      debug[0].classList.remove("visible");
+    }
   });
 
-  return (
-    <div
-      style={
-        currentGame?.currentTurnOfPlayer == myUserIndex
-          ? { background: "yellow" }
-          : {}
-      }
-    >
-      {!currentUsername ? (
+  const hasNoUsername = () => {
+    return (
+      <>
+        <h2>Need a name to enter a room!</h2>
         <NameEntry nameEntryCallback={enterGame} />
-      ) : (
-        <>
-          {!currentGame ? (
-            <>
-              <h3>No game exists with that ID: {currentUsername}</h3>
-              <Link to="/">Go back</Link>
-            </>
-          ) : (
-            <>
-              <PlayersTable />
-              <div>
-                <h5>
-                  User: {currentUsername} Round:{" "}
-                  {currentGame?.round?.roundNumber} Current State:{" "}
-                  {currentGame.state} Room ID: == {currentGame?.id}
-                </h5>
-                <>{currentGame.state == "Bidding" && <Bid />}</>
-                <>{currentGame.state == "Scoring" && <ContinueButton />}</>
-                <>{currentGame.state != "Bidding" && <PlayedHand />}</>
-                {/* <>
-                  <PlayedHand />
-                </> */}
-                <>
-                  {(currentGame.state != "Seating" ||
-                    currentGame.state != "Dealing") && (
-                    <>
-                      <MyHand />
-                      <TrumpCard />
-                    </>
-                  )}
-                </>
+      </>
+    );
+  };
 
-                {/* <ChatWindow /> */}
-                {/* <LeaveButton /> */}
-                <StandUpButton />
-                {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
-                <> {currentGame?.state == "Bidding" && <Bid />}</>
-                <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
-                <>
-                  {currentGame.state == "Seating" && (
-                    <h3>Need players to join, table isn't full yet!</h3>
-                  )}
-                  {currentGame.state == "Dealing" && <DealButton />}
-                </>
+  const gameDoesntExist = () => {
+    return (
+      <>
+        <h3>No game exists with that ID: {currentUsername}</h3>
+        <Link to="/">Go back</Link>
+      </>
+    );
+  };
 
-                <Scoreboard />
-              </div>
-            </>
-          )}
-        </>
-      )}
+  const gameDisplay = () => {
+    return (
+      <>
+        {/* <StandUpButton /> */}
+        <div className="game-top-row">
+          <PlayersTable />
+          {currentGame.state == "Seating" && <Seating />}
+          {currentGame.state == "Bidding" && <Bid />}
+          {currentGame.state == "Dealing" && <DealButton />}
+          {currentGame.state == "Scoring" && <ContinueButton />}
+          {currentGame.state == "Playing" && <div style={{ width: "50%" }} />}
+          <TrumpCard />
+        </div>
+        <div className="game-second-row">
+          <PlayedHand />
+          <MyHand />
+        </div>
 
-      {/* {currentGame ? <PlayersTable /> : <></>}
-      <div>
-        <h2>Current State: {currentGame.state}</h2>
-        <h2>Room ID: == {currentGame?.id}</h2>
-        <PlayedHand />
-        <ChatWindow />
-        <LeaveButton />
-        <StandUpButton /> */}
-      {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
-        <> {currentGame?.state == "Bidding" && <Bid />}</>
-        <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
-      {/* <DealButton />
-        <Bid />
+        <Scoreboard />
+      </>
+    );
+  };
 
-        <TrumpCard />
-        <MyHand /> */}
-      {/* </div> */}
-    </div>
-    // <div>
-    // {currentGame ? <PlayersTable /> : <></>}
-    // <div>
-    //   <h2>Current State: {currentGame.state}</h2>
-    //   <h2>Room ID: == {currentGame?.id}</h2>
-    //   <PlayedHand />
-    //   <ChatWindow />
-    //   <LeaveButton />
-    //   <StandUpButton />
-    // {/* <> {currentGame?.state == "Dealing" && <DealButton />}</>
-    //  <> {currentGame?.state == "Bidding" && <Bid />}</>
-    // <> {currentGame?.state == "Playing" && <PlayedHand />}</> */}
-    //     <DealButton />
-    //     <Bid />
-
-    //     <TrumpCard />
-    //     <MyHand />
-    //   </div>
-    // </div>
+  return (
+    <>
+      <div class="debug-data">
+        <h5>
+          User: {currentUsername || "null"} ... Round number:{" "}
+          {currentGame?.round?.roundNumber || "null"} ... Current State:{" "}
+          {currentGame?.state || "null"} ... Room ID:
+          {currentGame?.id || "null"}
+        </h5>
+      </div>
+      <div
+        className={`game-route-container ${
+          currentGame &&
+          currentGame?.currentTurnOfPlayer == myUserIndex &&
+          "is-my-turn"
+        }`}
+      >
+        {!currentUsername ? (
+          hasNoUsername()
+        ) : (
+          <>{!currentGame ? gameDoesntExist() : gameDisplay()}</>
+        )}
+      </div>
+    </>
   );
 };
 

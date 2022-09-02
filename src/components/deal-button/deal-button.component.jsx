@@ -1,3 +1,5 @@
+import "./deal-button.styles.scss";
+
 import { useCallback, useContext } from "react";
 
 import { GameContext } from "../../contexts/game.context";
@@ -9,7 +11,11 @@ const DealButton = () => {
   const handleDealClick = () => {
     socket.emit("deal", currentGame.id);
   };
-  return <button onClick={handleDealClick}>Deal</button>;
+  return (
+    <div className="deal-button-container">
+      <button onClick={handleDealClick}>Deal</button>
+    </div>
+  );
 };
 
 export default DealButton;

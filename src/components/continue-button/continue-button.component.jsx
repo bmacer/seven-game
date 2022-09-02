@@ -1,3 +1,4 @@
+import "./continue-button.styles.scss";
 import { useContext } from "react";
 import { GameContext } from "../../contexts/game.context";
 import socket from "../../socket";
@@ -8,7 +9,7 @@ const ContinueButton = () => {
     socket.emit("continue", { game: currentGame });
   };
   return (
-    <div>
+    <div className="continue-button-container">
       <button onClick={handleClick}>Next Hand</button>
     </div>
   );
