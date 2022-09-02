@@ -3,6 +3,8 @@ import { useContext } from "react";
 import { GameContext } from "../../contexts/game.context";
 import socket from "../../socket";
 
+const DEAL_BUTTON = require("../../assets/deal-button.png");
+
 const ContinueButton = () => {
   const { currentGame } = useContext(GameContext);
   const handleClick = () => {
@@ -10,7 +12,8 @@ const ContinueButton = () => {
   };
   return (
     <div className="continue-button-container">
-      <button onClick={handleClick}>Next Hand</button>
+      {/* <button onClick={handleClick}>Next Hand</button> */}
+      <img className="deal-button" onClick={handleClick} src={DEAL_BUTTON} />
     </div>
   );
 };

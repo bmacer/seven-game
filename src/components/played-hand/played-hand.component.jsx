@@ -12,19 +12,14 @@ const PlayedHand = () => {
   //   });
   return (
     <div className="played-hands-container">
-      <h1>Played Hands:</h1>
+      <>{currentGame.round && <h1>Played Hands:</h1>}</>
       <>
         {currentGame &&
           currentGame.round &&
           currentGame?.round?.plays?.map((card) => {
-            //   if (!play) {
-            //     return <img src="../../assets/CardImages/png/blank.png" />;
-            //   }
             return <Card card={card} />;
-            //   return <h2>{JSON.stringify(card)}</h2>;
           })}
       </>
-      {/* })} */}
     </div>
   );
 };
