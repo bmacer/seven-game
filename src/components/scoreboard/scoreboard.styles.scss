@@ -1,4 +1,7 @@
 .scoreboard-container {
+  // position: absolute;
+  left: 0px;
+  top: 0px;
   font-size: 20px;
   //   position: absolute;
   background: orange;
@@ -9,7 +12,10 @@
 }
 
 #scoreboard-inner-container {
-  //   position: absolute;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
   left: 0%;
   top: 0%;
   z-index: 100;
@@ -21,6 +27,7 @@
 }
 
 #scoreboard-inner-container.visible {
+  width: 33%;
   display: none;
 }
 

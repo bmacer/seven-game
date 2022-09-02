@@ -92,8 +92,6 @@ const PlayersTable = () => {
   };
 
   socket.on("seating-update", ({ game }) => {
-    console.log("got seating update");
-    console.log(game);
     setCurrentGame(game);
   });
   // io.to(player.socketId!).emit("seating-update", game);
@@ -104,13 +102,14 @@ const PlayersTable = () => {
         <table>
           <thead>
             <tr>
-              <td>Dealer</td>
-              <td>Turn</td>
+              {/* <td>Dealer</td> */}
+              {/* <td>Turn</td> */}
               <td>#</td>
               <td>Player</td>
               <td>Bid</td>
               <td>Tricks</td>
-              <td>Score</td>
+              <td>Round Score</td>
+              <td>Total Score</td>
             </tr>
           </thead>
           <tbody>
@@ -119,18 +118,26 @@ const PlayersTable = () => {
                 <tr
                   key={index}
                   className={
-                    player.seatIndex === myUserIndex ? "currentPlayer" : ""
+                    player.seatIndex === currentGame.currentTurnOfPlayer
+                      ? "currentPlayer"
+                      : ""
                   }
                 >
-                  {currentGame.dealerIndex == index ? <td>*</td> : <td></td>}
-                  {currentGame.currentTurnOfPlayer == index ? (
+                  {/* {currentGame.dealerIndex == index ? <td>*</td> : <td></td>} */}
+                  {/* {currentGame.currentTurnOfPlayer == index ? (
                     <td>*</td>
                   ) : (
                     <td></td>
-                  )}
+                  )} */}
                   <td>{index + 1}</td>
                   <td>
-                    {player.username || (
+                    {(myUserIndex == index ? (
+                      <>
+                        <strong>{player.username}</strong>
+                      </>
+                    ) : (
+                      player.username
+                    )) || (
                       <>
                         {!iAmSeated ? (
                           <button value={index} onClick={handleSitClick}>
@@ -142,9 +149,10 @@ const PlayersTable = () => {
                       </>
                     )}
                   </td>
-                  <td>{currentGame.round?.bids[index]}</td>
-                  <td>{currentGame.round?.tricks[index]}</td>
-                  <td>{currentGame.round?.score[index]}</td>
+                  <td>{currentGame.round?.bids[index] || "-"}</td>
+                  <td>{currentGame.round?.tricks[index] || "-"}</td>
+                  <td>{currentGame.round?.score[index] || "-"}</td>
+                  <td>{currentGame.totalScore[index] || "-"}</td>
                   {/* {renderBids(getBidsFromGame(currentGame))}
                   {renderTricks(getTricksFromGame(currentGame))} */}
                 </tr>
